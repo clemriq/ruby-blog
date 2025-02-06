@@ -4,20 +4,20 @@
   <div class="grid grid-cols-1 gap-6">
     <% @blog_posts.each do |blog_post| %>
       <div class="bg-white shadow-md rounded-lg p-6 relative mb-6">
-        <div>
+        <div class="relative">
+            <% if blog_post.draft? %>
+            <div class="absolute top-0 right-0 mt-2 mr-2 inline-block bg-red-200 text-red-800 rounded-full px-3 py-1 text-sm font-semibold border border-red-400 shadow" style="right: 0;">
+              Draft
+            </div>
+            <% elsif blog_post.schedule? %>
+            <div class="absolute top-0 right-0 mt-2 mr-2 inline-block bg-blue-200 text-blue-800 rounded-full px-3 py-1 text-sm font-semibold border border-blue-400 shadow" style="right: 0;">
+              Scheduled
+            </div>
+            <% end %>
+
           <h2 class="text-2xl font-semibold mb-2">
             <%= link_to blog_post.title, blog_post, class: "text-blue-500 hover:underline" %>
           </h2>
-
-          <% if blog_post.draft? %>
-            <div class="inline-block bg-red-200 text-red-800 rounded-full px-3 py-1 text-sm font-semibold border border-red-400 shadow">
-              Draft
-            </div>
-          <% elsif blog_post.schedule? %>
-            <div class="inline-block bg-blue-200 text-blue-800 rounded-full px-3 py-1 text-sm font-semibold border border-blue-400 shadow">
-              Scheduled
-            </div>
-          <% end %>
 
           <p class="text-gray-700 mt-4"><%= truncate(blog_post.body, length: 150) %></p>
         </div>
