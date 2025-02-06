@@ -2,8 +2,6 @@ class BlogPostsController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
     before_action :set_blog_post, except: [:index, :new, :create]
 
-    
-    
     def index
         @blog_posts = BlogPost.published
     end
@@ -43,7 +41,7 @@ class BlogPostsController < ApplicationController
     private
 
     def blog_post_params
-        params.require(:blog_post).permit(:title, :body)
+        params.require(:blog_post).permit(:title, :body, :published_at)
     end
 
     def set_blog_post
